@@ -29,7 +29,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         btnMenu = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        lblTitle = new javax.swing.JLabel();
         wallpaper = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -53,10 +53,10 @@ public class Principal extends javax.swing.JFrame {
         });
         jPanel1.add(btnMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, 370, 150));
 
-        jLabel2.setFont(new java.awt.Font("Snap ITC", 0, 33)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 153, 51));
-        jLabel2.setText("¡Campeonato Mundial de SnakeGame!");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 730, 40));
+        lblTitle.setFont(new java.awt.Font("Snap ITC", 0, 33)); // NOI18N
+        lblTitle.setForeground(new java.awt.Color(0, 153, 51));
+        lblTitle.setText("¡Campeonato Mundial de SnakeGame!");
+        jPanel1.add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 730, 40));
 
         wallpaper.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/snakewallpaper (2).jpg"))); // NOI18N
         jPanel1.add(wallpaper, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 410));
@@ -120,9 +120,9 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMenu;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel wallpaper;
     // End of variables declaration//GEN-END:variables
 }

@@ -36,7 +36,7 @@ public class Menu extends javax.swing.JFrame {
         btnCredits = new javax.swing.JButton();
         btnCredits1 = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        lblMenu = new javax.swing.JLabel();
         wallpaper2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -143,10 +143,10 @@ public class Menu extends javax.swing.JFrame {
         jTextField1.setBackground(new java.awt.Color(153, 153, 0));
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 750, 10));
 
-        jLabel2.setFont(new java.awt.Font("Snap ITC", 0, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 51, 0));
-        jLabel2.setText("Menú Principal");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 230, 40));
+        lblMenu.setFont(new java.awt.Font("Snap ITC", 0, 24)); // NOI18N
+        lblMenu.setForeground(new java.awt.Color(0, 51, 0));
+        lblMenu.setText("Menú Principal");
+        jPanel1.add(lblMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 230, 40));
 
         wallpaper2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/snakewallpaper (2).jpg"))); // NOI18N
         wallpaper2.setText("jLabel1");
@@ -168,7 +168,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         this.setVisible(false);
-        new Menu().setVisible(true);
+        new Register().setVisible(true);
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     private void btnPlayersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayersActionPerformed
@@ -203,31 +203,7 @@ public class Menu extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
+      
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Menu().setVisible(true);
@@ -244,9 +220,9 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnResults;
     private javax.swing.JButton btnRetire;
     private javax.swing.JButton btnTablePoints;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblMenu;
     private javax.swing.JLabel wallpaper2;
     // End of variables declaration//GEN-END:variables
 }
