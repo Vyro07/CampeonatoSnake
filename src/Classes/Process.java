@@ -7,26 +7,36 @@ package Classes;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 /**
  *
  * @author Jordan
  */
 public class Process {
     
+      //Método que permite validar la estructura del email
       public boolean validarEmail(String email)
     {
+     //Compilación de la expresion regular o patrón para un email
      Pattern pattern = Pattern
                 .compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
                         + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
+     
+     //Matcher que compara el input del usuario contra el patrón
      Matcher matcher = pattern.matcher(email);
+     
+     //Retorno del resultado de la comparación
      return matcher.find();
     }
       
       public boolean validarFecha(String fecha)
     {
+     //Compilación de la expresion regular o patrón para un email
      Pattern pattern = Pattern
                 .compile("^([0-2][0-9]|3[0-1])(\\/|-)(0[1-9]|1[0-2])\\2(\\d{4})$");
      Matcher matcher = pattern.matcher(fecha);
      return matcher.find();
     }
+     
+     
 }

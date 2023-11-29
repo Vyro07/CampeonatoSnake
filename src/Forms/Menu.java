@@ -166,6 +166,7 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Invoca la ventana de registro
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
         this.setVisible(false);
         new Register().setVisible(true);
@@ -196,7 +197,8 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCreditsActionPerformed
 
     private void btnCredits1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCredits1ActionPerformed
-        System.exit(0);
+        //Detiene la ejecución del programa
+        System.exit(0); 
     }//GEN-LAST:event_btnCredits1ActionPerformed
 
     /**

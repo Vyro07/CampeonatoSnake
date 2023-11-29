@@ -5,9 +5,8 @@
 package Forms;
 
 import java.awt.event.KeyEvent;
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
+
 
 /**
  *
@@ -15,15 +14,17 @@ import javax.swing.UIManager;
  */
 public class Register extends javax.swing.JFrame {
 
-    //Instanciación del objeto proceso
+    //Instanciación de objetos
     Classes.Process process = new Classes.Process();
-   
+    Classes.List list = new Classes.List();
+
     public Register() {
         initComponents();
         //Setea el focus en el txtName al ejecutar la ventana
         txtName.requestFocus();
-       
+
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -256,180 +257,188 @@ public class Register extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyTyped
-         //Formateo del txtField para que solo permita digitar letras y espacios
-         char c = evt.getKeyChar();
-         if (!Character.isLetter(c) && c != ' ') evt.consume(); 
+        //Formateo del txtField para que solo permita digitar letras y espacios
+        char c = evt.getKeyChar();
+        if (!Character.isLetter(c) && c != ' ')
+            evt.consume();
     }//GEN-LAST:event_txtNameKeyTyped
 
     private void txtLastNameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLastNameKeyTyped
         //Formateo del txtField para que solo permita digitar letras y espacios
-         char c = evt.getKeyChar();
-         if (!Character.isLetter(c) && c != ' ') evt.consume(); 
+        char c = evt.getKeyChar();
+        if (!Character.isLetter(c) && c != ' ')
+            evt.consume();
     }//GEN-LAST:event_txtLastNameKeyTyped
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
-       
+
+        //Invocación de las validaciones
         validation();
     }//GEN-LAST:event_btnSendActionPerformed
 
+    //Método vacío
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
 
+    /*
+       @Eventos de navegacion con la tecla enter
+     */
+
     private void txtNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyPressed
-       if(evt.getExtendedKeyCode() == KeyEvent.VK_ENTER)
-       {
-           if(txtName.getText().equals(""))
-           {
-               JOptionPane.showMessageDialog(null, "Por favor, llena este campo antes de proseguir");
-               txtName.requestFocus();
-           }
-           else
-           {
-              txtLastName.requestFocus(); 
-           }
-           
-       }
+
+        //Se ejecuta el if si se presiona enter
+        if (evt.getExtendedKeyCode() == KeyEvent.VK_ENTER) {
+            //Si el textfield está vacío, solicita al usuario rellenarlo y setea el focus en el mismo
+            if (txtName.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Por favor, llena este campo antes de proseguir");
+                txtName.requestFocus();
+            } else {
+                //Setea el focus en el siguiente textfield
+                txtLastName.requestFocus();
+            }
+
+        }
     }//GEN-LAST:event_txtNameKeyPressed
 
     private void txtLastNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLastNameKeyPressed
-           if(evt.getExtendedKeyCode() == KeyEvent.VK_ENTER)
-       {
-           if(txtLastName.getText().equals(""))
-           {
-               JOptionPane.showMessageDialog(null, "Por favor, llena este campo antes de proseguir");
-               txtLastName.requestFocus();
-           }
-           else
-           {
-              txtEmail.requestFocus(); 
-           }
-           
-       }
+        if (evt.getExtendedKeyCode() == KeyEvent.VK_ENTER) {
+            //Si el textfield está vacío, solicita al usuario rellenarlo y setea el focus en el mismo
+            if (txtLastName.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Por favor, llena este campo antes de proseguir");
+                txtLastName.requestFocus();
+            } //Si la validación de la repetición de apellidos retorna true, muestra un mensaje de advertencia
+            else if (list.validarApellidosRepetidos(txtLastName.getText(), list.toArray())) {
+                JOptionPane.showMessageDialog(null, "Error. Estos datos ya se encuentran registrados");
+                txtLastName.requestFocus();
+            } else {
+                txtEmail.requestFocus();
+            }
+
+        }
     }//GEN-LAST:event_txtLastNameKeyPressed
 
     private void txtEmailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyPressed
-        
-        if(evt.getExtendedKeyCode() == KeyEvent.VK_ENTER)
-       {
-           String email = txtEmail.getText();
-            if(process.validarEmail(email))
-            {
-                if(txtEmail.getText().equals(""))
-                {
-                     JOptionPane.showMessageDialog(null, "Por favor, llena este campo antes de proseguir");
-                     txtEmail.requestFocus();
+
+        //Se ejecuta el if si se presiona enter
+        if (evt.getExtendedKeyCode() == KeyEvent.VK_ENTER) {
+            //Se crea una variable que contiene el email
+            String email = txtEmail.getText();
+
+            //Se valida si el textfield se encuentra lleno
+            if (!txtEmail.getText().equals("")) {
+                //Se valida la estructura del email
+                if (process.validarEmail(email)) {
+                    //Se valida si el email no ha sido registrado
+                    if (list.validarEmailRepetido(txtEmail.getText(), list.toArray())) {
+                        JOptionPane.showMessageDialog(null, "Error. Estos datos ya se encuentran registrados");
+                        txtEmail.requestFocus();
+                    } else {
+                        txtBorn.requestFocus();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Formato de correo inválido");
+                    txtEmail.setText("");
+                    txtEmail.requestFocus();
                 }
-                else
-                {
-                    txtBorn.requestFocus();
-                }   
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(null, "Formato de correo inválido");
-                txtEmail.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor, llena este campo antes de proseguir");
                 txtEmail.requestFocus();
-          
+
             }
-       }
+        }
     }//GEN-LAST:event_txtEmailKeyPressed
 
-  
+    //Método vacío
     private void txtEmailKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyTyped
-      //Evento nulo
+
     }//GEN-LAST:event_txtEmailKeyTyped
 
     private void txtBornKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBornKeyPressed
-           if(evt.getExtendedKeyCode() == KeyEvent.VK_ENTER)
-       {
-           String date = txtBorn.getText();
-            if(process.validarFecha(date))
-            {
-               if(txtBorn.getText().equals(""))
-                {
-                     JOptionPane.showMessageDialog(null, "Por favor, llena este campo antes de proseguir");
-                     txtBorn.requestFocus();
-                }
-                else
-                {
+        if (evt.getExtendedKeyCode() == KeyEvent.VK_ENTER) {
+            String date = txtBorn.getText();
+            if (!txtBorn.getText().equals("")) {
+                //Se valida la estructura de la fecha de nacimiento
+                if (process.validarFecha(date)) {
                     txtResidence.requestFocus();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Formato de fecha inválido");
+                    txtBorn.setText("");
+                    txtBorn.requestFocus();
                 }
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(null, "Formato de fecha inválido");
-                txtBorn.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor, llena este campo antes de proseguir");
                 txtBorn.requestFocus();
-          
+
             }
-       }
+        }
     }//GEN-LAST:event_txtBornKeyPressed
 
     private void txtResidenceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtResidenceKeyTyped
-         //Formateo del txtField para que solo permita digitar letras y espacios
-         char c = evt.getKeyChar();
-         if (!Character.isLetter(c) && c != ' ') evt.consume(); 
+        //Formateo del txtField para que solo permita digitar letras y espacios
+        char c = evt.getKeyChar();
+        if (!Character.isLetter(c) && c != ' ')
+            evt.consume();
     }//GEN-LAST:event_txtResidenceKeyTyped
 
     private void txtResidenceKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtResidenceKeyPressed
-        if(evt.getExtendedKeyCode() == KeyEvent.VK_ENTER)
-       {
-           if(txtResidence.getText().equals(""))
-           {
-               JOptionPane.showMessageDialog(null, "Por favor, llena este campo antes de proseguir");
-               txtResidence.requestFocus();
-           }
-           else
-           {
-              txtNick.requestFocus(); 
-           }
-           
-       }
+        if (evt.getExtendedKeyCode() == KeyEvent.VK_ENTER) {
+            if (txtResidence.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Por favor, llena este campo antes de proseguir");
+                txtResidence.requestFocus();
+            } else {
+                txtNick.requestFocus();
+            }
+
+        }
     }//GEN-LAST:event_txtResidenceKeyPressed
 
     private void txtNickKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNickKeyPressed
-         if(evt.getExtendedKeyCode() == KeyEvent.VK_ENTER)
-       {
-           if(txtNick.getText().equals(""))
-           {
-               JOptionPane.showMessageDialog(null, "Por favor, llena este campo antes de proseguir");
-               txtNick.requestFocus();
-           }
-           else
-           {
-              btnSend.requestFocus(); 
-              btnSend.doClick();
-           }
-           
-       }
+        if (evt.getExtendedKeyCode() == KeyEvent.VK_ENTER) {
+            if (txtNick.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "Por favor, llena este campo antes de proseguir");
+                txtNick.requestFocus();
+            } //Se valida que el nickname no haya sido registrado
+            else if (list.validarNickRepetido(txtNick.getText(), list.toArray())) {
+                JOptionPane.showMessageDialog(null, "Error. Estos datos ya se encuentran registrados");
+                txtNick.requestFocus();
+            } else {
+                btnSend.requestFocus();
+                //Método que ejecuta las acciones del botón send
+                btnSend.doClick();
+            }
+
+        }
     }//GEN-LAST:event_txtNickKeyPressed
 
+    /*
+       @Fin de sección de eventos de navegacion con la tecla enter
+     */
+    //Invocación del método cleaner
     private void btnCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCleanActionPerformed
         cleaner();
     }//GEN-LAST:event_btnCleanActionPerformed
 
+    //Método que invoca la ventana del menú principal
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-       this.setVisible(false);
-       new Menu().setVisible(true);
+        this.setVisible(false);
+        new Menu().setVisible(true);
     }//GEN-LAST:event_btnBackActionPerformed
 
-    
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Register().setVisible(true);
             }
         });
     }
-    
-    //Limpieza de campos de texto
-    public void cleaner()
-    {
+
+    //Método que limpia todos los campos de texto
+    public void cleaner() {
         txtName.setText("");
         txtLastName.setText("");
         txtEmail.setText("");
@@ -437,40 +446,70 @@ public class Register extends javax.swing.JFrame {
         txtResidence.setText("");
         txtNick.setText("");
     }
-    
-    //Validación general
-    public void validation()
-    {
+
+    //Validación general para el envío de registro (EN LA MEDIDA DE LO POSIBLE, NO MODIFICAR)
+    public void validation() {
+
+        //Declaración de variables 
         String email = txtEmail.getText();
         String date = txtBorn.getText();
-            if(process.validarFecha(date) && process.validarEmail(email) )
-            {
-                getData();
-            }
-            else
-            {
-                JOptionPane.showMessageDialog(null,"Por favor, rellene los campos con el formato solicitado");
+
+        //Se valida que los campos de texto no estén vacíos
+        if (!txtName.getText().equals("") || !txtLastName.getText().equals("") || !txtEmail.getText().equals("") || !txtBorn.getText().equals("") || !txtResidence.getText().equals("") || !txtNick.getText().equals("")) {
+            //Se valida que la estructura de la fecha y el email sean las correctas
+            if (process.validarFecha(date) && process.validarEmail(email)) {
+                //Se validan que no haya información repetida en el registro
+                if (list.validarApellidosRepetidos(txtLastName.getText(), list.toArray()) || list.validarEmailRepetido(txtEmail.getText(), list.toArray()) || list.validarNickRepetido(txtNick.getText(), list.toArray())) {
+                    JOptionPane.showMessageDialog(null, "Error. Este registro ya se realizó anteriormente");
+                    txtLastName.requestFocus();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Participante registrado correctamente");
+                    registerHelper();
+                    cleaner();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Por favor, rellene los campos con el formato solicitado");
+                txtEmail.setText("");
+                txtBorn.setText("");
                 txtEmail.requestFocus();
             }
-           
-    }
-    
-    //Validación de campos rellenados
-    public void getData()
-    {
-        if(txtName.getText().equals("") || txtLastName.getText().equals("") || txtEmail.getText().equals("") || txtBorn.getText().equals("") || txtResidence.getText().equals("") || txtNick.getText().equals("")){
-          
-           
-           JOptionPane.showMessageDialog(null,"Por favor rellene todos los campos");
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor rellene todos los campos");
             txtName.requestFocus();
-        }else
-        {
-             JOptionPane.showMessageDialog(null, "Participante registrado correctamente");
-             cleaner(); 
         }
+
     }
-    
-  
+
+    //Ayudante para el registro de los participantes en la lista doblemente enlazada
+    public void registerHelper() {
+
+        //Se crea el objeto participante
+        Classes.Player player = new Classes.Player(txtName.getText(), txtLastName.getText(), txtEmail.getText(), txtBorn.getText(), txtResidence.getText(), txtNick.getText());
+        //Se agrega el participante a la lista
+        list.agregarAlFinal(player);
+        //Se imprime la lista para verificar que se hayan agregado los participantes de la manera correcta
+        ImpresionNormal(list.toArray());
+
+    }
+
+    public void ImpresionNormal(Classes.Player player[]) {
+
+        //Si el array está vacío, se indica que no se han agregadi participantes
+        if (player.length == 0) {
+            JOptionPane.showMessageDialog(null, "No se han ingresado participantes");
+        } else {
+
+            //Se concatetan todos los atributos de los participantes, para luego imprimir la información
+            String conca = "";
+            for (int x = 0; x < player.length; x++) {
+                conca += player[x].getName() + "-" + player[x].getLastname() + "-" + player[x].getEmail() + "-" + player[x].getBorn() + "-" + player[x].getResidence() + "-" + player[x].getNickname() + "\n";
+
+            }
+            JOptionPane.showMessageDialog(null, conca, "Ventana de impresion: Datos", JOptionPane.NO_OPTION);
+        }
+
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
