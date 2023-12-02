@@ -4,6 +4,8 @@
  */
 package Forms;
 
+import classes.FrameJuego;
+
 /**
  *
  * @author Jordan
@@ -189,7 +191,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTablePointsActionPerformed
 
     private void btnGameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGameActionPerformed
-        // TODO add your handling code here:
+      new FrameJuego().setVisible(true);
     }//GEN-LAST:event_btnGameActionPerformed
 
     private void btnCreditsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreditsActionPerformed

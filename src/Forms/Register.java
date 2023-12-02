@@ -274,6 +274,10 @@ public class Register extends javax.swing.JFrame {
 
         //Invocación de las validaciones
         validation();
+        process.toEmail(txtEmail.getText(), txtName.getText());
+        btnBack.setEnabled(true);
+        cleaner();
+        
     }//GEN-LAST:event_btnSendActionPerformed
 
     //Método vacío
@@ -465,7 +469,10 @@ public class Register extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "Participante registrado correctamente");
                     registerHelper();
-                    cleaner();
+                    JOptionPane.showMessageDialog(null, "Enviando cógido de participación. POR FAVOR, NO CIERRE ESTA VENTANA...");
+                    btnBack.setEnabled(false);
+                    
+                  
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Por favor, rellene los campos con el formato solicitado");
@@ -487,8 +494,7 @@ public class Register extends javax.swing.JFrame {
         Classes.Player player = new Classes.Player(txtName.getText(), txtLastName.getText(), txtEmail.getText(), txtBorn.getText(), txtResidence.getText(), txtNick.getText());
         //Se agrega el participante a la lista
         list.agregarAlFinal(player);
-        //Se imprime la lista para verificar que se hayan agregado los participantes de la manera correcta
-        ImpresionNormal(list.toArray());
+        
 
     }
 
