@@ -49,7 +49,7 @@ public class Process {
           String emitition = "jordanfadellm@gmail.com";
           String password = "gqma nosd mehy nohf";
           String message = "Hola "+nombre+ "!!\n Bienvedido al Campeonanto Internacional de Snake. Tu código de participante es: \n"
-                  +String.valueOf((int)(Math.random()*100+1));
+                  +String.valueOf((int)(Math.random()*1000+1));
           
           Properties object = new Properties();
           
